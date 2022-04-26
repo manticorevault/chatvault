@@ -1,9 +1,16 @@
 import React from "react";
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
-import Cookies from "universal-cookie";
+// import Cookies from "universal-cookie";
 
-require('dotenv').config()
+// Import styles
+import "./App.css";
+
+// Import Components
+import { 
+    ChannelListContainer, 
+    ChannelContainer } 
+from "./components"
 
 const apiKey = process.env.STREAM_API_KEY
 
