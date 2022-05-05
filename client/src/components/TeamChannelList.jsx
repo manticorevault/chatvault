@@ -1,13 +1,12 @@
 import React from "react";
-
 import { AddChannel } from "../assets";
 
 const TeamChannelList = 
         ({  children, 
             error = false, 
             loading, 
-            type }) 
-        => {
+            type 
+        }) => {
 
     if (error) {
         return type === "team" ? (
@@ -42,4 +41,4 @@ const TeamChannelList =
     )
 }
 
-export default TeamChannelList
+export default TeamChannelList;
