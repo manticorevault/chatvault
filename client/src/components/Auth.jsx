@@ -4,16 +4,37 @@ import Axios from "axios";
 
 import signupBackground from "../assets/signup.jpeg";
 
+const initialState = {
+    fullName: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    avatarURL: ""
+}
+
 const Auth = () => {
+    const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(true);
 
-    const handleChange = () => {}
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        console.log(form);
+    }
+
+    const handleChange = (event) => {
+        setForm({
+            ...form, [event.target.name]: event.target.value
+        });
+    }
 
     // Get the previous state of isSignup and change it
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup)
     }
 
+    // Sign Up form that can switch to Sign In form
     return (
         <div className="auth__form-container">
             <div className="auth__form-container_fields">
@@ -22,7 +43,7 @@ const Auth = () => {
                         {isSignup ? "Sign Up!" : "Sign In!"}
                     </p>
 
-                    <form onSubmit={() => {}}>
+                    <form onSubmit={handleSubmit}>
                         {isSignup && (
                             <div className="auth__form-container_fields-content_input">
                                 <label htmlFor="fullName">
@@ -106,13 +127,19 @@ const Auth = () => {
 
                                 <input 
                                     name="confirmPassword"
-                                    type="text"
+                                    type="password"
                                     placeholder="Confirm Password"
                                     onChange={handleChange}
                                     required
                                 />
                             </div>
                         )}
+
+                        <div className="auth__form-container_fields-content_button">
+                            <button>
+                                {isSignup ? "Signup" : "Signin"}
+                            </button>
+                        </div>
                     </form>
 
                     <div className="auth__form-container_fields-account">
@@ -129,6 +156,12 @@ const Auth = () => {
                         </p>
                     </div>
                 </div>
+            </div>
+            <div className="auth__form-container_image">
+                <img
+                    img src={signupBackground}
+                    alt="Sign In image"
+                />
             </div>
         </div>
     )
