@@ -9,7 +9,8 @@ import "./App.css";
 // Import Components
 import { 
     ChannelListContainer, 
-    ChannelContainer } 
+    ChannelContainer,
+    Auth } 
 from "./components"
 
 const apiKey = process.env.STREAM_API_KEY
@@ -17,7 +18,13 @@ const apiKey = process.env.STREAM_API_KEY
 // Create an instance of a Stream Chat
 const client = StreamChat.getInstance(apiKey)
 
+// Insert the Auth Token
+const authToken = false;
+
 const App = () => {
+
+    if (!authToken) return <Auth />
+
     return (
         <div className="app__wrapper">
             <Chat client={ client } theme="team dark">
