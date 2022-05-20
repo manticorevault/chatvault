@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const authRoutes = require("./routes/auth.js");
 
 require("dotenv").config();
 
@@ -15,6 +16,9 @@ app.use(express.urlencoded());
 app.get("/", (req, res) => {
     res.send("Hello, world!") 
 });
+
+// Bring in the authentication routes
+app.use("/auth", authRoutes);
 
 // Listen to the app
 app.listen(PORT, () => console.log(`Server is up and running on PORT ${PORT}`))
