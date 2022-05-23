@@ -34,8 +34,8 @@ const Auth = () => {
         const URL = "http://localhost:5000/auth";
 
         // Make the actual request
-        const { data: { token, userId, hashedPassword } } = await 
-                            axios.post(`${URL}/${isSignup} ? "signup : "login"`,
+        const { data: { token, userId, hashedPassword } } = 
+                                await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`,
                             { 
                                 username,
                                 password,
