@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Cookies from "universal-cookie";
-import Axios from "axios";
-
 import signupBackground from "../assets/signup.jpeg";
+import axios from "axios";
+
+// Bring in a new instance of cookies
+const cookies = new Cookies();
 
 const initialState = {
     fullName: "",
@@ -17,10 +19,45 @@ const Auth = () => {
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(true);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        console.log(form);
+        // Gather data from the form
+        const { 
+                fullName, 
+                username, 
+                password, 
+                phoneNumber, 
+                avatarURL 
+            }   = form;
+
+        const URL = "http://localhost:5000/auth";
+
+        // Make the actual request
+        const { data: { token, userId, hashedPassword } } = await 
+                            axios.post(`${URL}/${isSignup} ? "signup : "login"`,
+                            { 
+                                username,
+                                password,
+                                fullName, 
+                                phoneNumber, 
+                                avatarURL
+                            })
+        // Set the cookies up for login
+        cookies.set("token", token);
+        cookies.set("username", username);
+        cookies.set("fullName", fullName);
+        cookies.set("userId", userId);
+
+        // Set the cookies for signup
+        if (isSignup) {
+            cookies.set("phoneNumber", phoneNumber);
+            cookies.set("avatarURL", avatarURL);
+            cookies.set("hashedPassword", hashedPassword);
+        }
+
+        // Reload the browser once the cookies are setup
+        window.location.reload();
     }
 
     const handleChange = (event) => {
